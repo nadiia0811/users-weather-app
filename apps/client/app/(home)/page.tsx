@@ -1,0 +1,72 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { fetchRandomUsers, saveUser } from "@/lib/users";
+import { getWeather } from "@/lib/weather";
+import UserCard from "@/components/UserCard";
+import { User, RandomUserAPI } from "@/types/user";
+
+const HomePage = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadUsers = async () => {
+    setLoading(true);
+
+    try {
+      const randomUsers = await fetchRandomUsers();
+
+      const enriched = await Promise.all(
+        randomUsers.map(async (rawUser: RandomUserAPI) => {
+          const weather = await getWeather(
+            parseFloat(rawUser.location.coordinates.latitude),
+            parseFloat(rawUser.location.coordinates.longitude)
+          );
+
+          return {
+            name: `${rawUser.name.first} ${rawUser.name.last}`,
+            gender: rawUser.gender,
+            email: rawUser.email,
+            location: `${rawUser.location.city}, ${rawUser.location.country}`,
+            picture: rawUser.picture.large,
+            latitude: parseFloat(rawUser.location.coordinates.latitude),
+            longitude: parseFloat(rawUser.location.coordinates.longitude),
+            weather,
+          } as User;
+        })
+      );
+
+      setUsers((prev) => [...prev, ...enriched]);
+    } catch (err) {
+      console.error("Error loading users:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  return (
+    <section className="p-6 flex flex-col justify-center items-center">
+      <h1 className="text-2xl font-bold mb-4">Random Users</h1>
+      <div className="flex flex-wrap gap-4 justify-center">
+        {users.map((user) => (
+          <UserCard
+            key={user.email}
+            user={user}
+            onSave={() => saveUser(user)}
+          />
+        ))}
+      </div>
+      <div className="mt-4">
+        <button onClick={loadUsers} disabled={loading} className="load-btn">
+          {loading ? "Loading..." : "Load More"}
+        </button>
+      </div>
+    </section>
+  );
+};
+
+export default HomePage;
