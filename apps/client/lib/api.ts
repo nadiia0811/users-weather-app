@@ -6,7 +6,7 @@ const handleResponse = async <T>(res: Response): Promise<T> => {
     const message = await res.text();
     throw new Error(`API error (${res.status}): ${message}`);
   }
-  return res.json();
+  return await res.json();
 };
 
 export const apiGet = async <T>(url: string): Promise<T> => {
