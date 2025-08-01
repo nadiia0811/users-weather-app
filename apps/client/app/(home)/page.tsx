@@ -35,6 +35,7 @@ const HomePage = () => {
           );
 
           return {
+            id: rawUser.login.uuid,
             name: `${rawUser.name.first} ${rawUser.name.last}`,
             gender: rawUser.gender,
             email: rawUser.email,
