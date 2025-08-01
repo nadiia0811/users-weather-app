@@ -1,5 +1,5 @@
 export interface User {
-  id?: string;
+  id: string;
   name: string;
   gender: string;
   email: string;
@@ -16,6 +16,11 @@ export interface User {
 }
 
 export interface RandomUserAPI {
+  login: {
+    uuid: string,
+    username: string,
+    password: string
+  },
   gender: string;
   name: { first: string; last: string };
   location: {
