@@ -1,7 +1,7 @@
 import { Low } from "lowdb";
 import { userService } from "../services/user.service.js";
 import { z } from "zod";
-import { User } from "../../client/types/user";
+import { User } from "@/types/user";
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 
 const userSchema = z.object({

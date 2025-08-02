@@ -1,4 +1,4 @@
-import { User } from "../../client/types/user";
+import { User } from "@/types/user";
 import { Low } from "lowdb";
 
 export const userService = {
