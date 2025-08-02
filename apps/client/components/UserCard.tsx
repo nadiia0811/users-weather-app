@@ -3,6 +3,7 @@
 import { User } from "@/types/user";
 import Image from "next/image";
 import { getWeatherInfo } from "@/lib/weatherMap";
+import Button from "@/components/Button";
 
 interface Props {
   user: User;
@@ -11,7 +12,7 @@ interface Props {
   isSaved?: boolean;
 }
 
-export const UserCard = ({ user, onSave, onDelete, isSaved }: Props) => {
+const UserCard = ({ user, onSave, onDelete, isSaved }: Props) => {
   const weatherInfo =
     user.weather?.icon !== undefined ? getWeatherInfo(user.weather.icon) : null;
 
@@ -28,7 +29,7 @@ export const UserCard = ({ user, onSave, onDelete, isSaved }: Props) => {
       <p className="text-sm mb-2">
         {user.gender} • {user.location}
       </p>
-      <p className="text-sm">{user.email}</p>
+      <p className="text-sm break-all">{user.email}</p>
 
       {user.weather && (
         <div className="mt-2 text-center">
@@ -52,26 +53,24 @@ export const UserCard = ({ user, onSave, onDelete, isSaved }: Props) => {
         </div>
       )}
 
-      <div className="mt-3 flex gap-2">
+      <div className="gap-2 mt-auto">
         {!isSaved && onSave && (
-          <button
-            type="button"
+          <Button
             onClick={onSave}
             className="save-btn"
             aria-label={`Save user ${user.name}`}
           >
             Save
-          </button>
+          </Button>
         )}
         {isSaved && onDelete && (
-          <button
-            type="button"
+          <Button
             onClick={onDelete}
             className="delete-btn"
             aria-label={`Delete user ${user.name}`}
           >
             Delete
-          </button>
+          </Button>
         )}
       </div>
     </div>
