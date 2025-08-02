@@ -4,20 +4,28 @@ import { useState, useEffect } from "react";
 import { fetchRandomUsers, saveUser } from "@/lib/users";
 import { getWeather } from "@/lib/weather";
 import UserCard from "@/components/UserCard";
+import Button from "@/components/Button";
 import { User, RandomUserAPI } from "@/types/user";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const HomePage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
+  const message = "Failed to save user";
+  const router = useRouter();
+
+  const onBtnClick = () => {
+    router.push("/saved");
+  };
 
   const handleSave = async (user: User) => {
     try {
       await saveUser(user);
       toast.success("User saved successfully!");
     } catch (error) {
-      console.error("Failed to save user:", error);
-      toast.error("Failed to save user");
+      console.error(`${message}:`, error);
+      toast.error(message);
     }
   };
 
@@ -62,25 +70,26 @@ const HomePage = () => {
   }, []);
 
   return (
-    <section className="p-6 flex flex-col justify-center items-center">
-      <h1 className="text-2xl font-bold mb-4">Random Users</h1>
-      <div className="flex flex-wrap gap-4 justify-center">
-        {users.map((user) => (
-          <UserCard
-            key={user.email}
-            user={user}
-            onSave={() => handleSave(user)}
-          />
-        ))}
+    <section className="flex flex-col p-6">
+      <div className="flex flex-col">
+        <h1 className="text-2xl font-bold mb-4">Random Users</h1>
+        <div className="flex flex-wrap gap-4 justify-center">
+          {users.map((user) => (
+            <UserCard
+              key={user.email}
+              user={user}
+              onSave={() => handleSave(user)}
+            />
+          ))}
+        </div>
       </div>
-      <div className="mt-4">
-        <button 
-          onClick={loadUsers} 
-          disabled={loading} 
-          className="load-btn"
-        >
+      <div className="mt-4 flex gap-10 justify-center">
+        <Button onClick={loadUsers} disabled={loading} className="load-btn">
           {loading ? "Loading..." : "Load More"}
-        </button>
+        </Button>
+        <Button onClick={onBtnClick} className="load-btn">
+          Saved Users
+        </Button>
       </div>
     </section>
   );
