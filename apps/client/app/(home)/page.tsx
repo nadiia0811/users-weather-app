@@ -72,7 +72,7 @@ const HomePage = () => {
   return (
     <section className="flex flex-col p-6">
       <div className="flex flex-col">
-        <h1 className="text-2xl font-bold mb-4">Random Users</h1>
+        <h1 className="text-2xl font-bold mb-4 text-center">Random Users</h1>
         <div className="flex flex-wrap gap-4 justify-center">
           {users.map((user) => (
             <UserCard
