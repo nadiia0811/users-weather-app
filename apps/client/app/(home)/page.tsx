@@ -29,7 +29,7 @@ const HomePage = () => {
     }
   };
 
-  const loadUsers = async () => {
+  const loadUsers = async (append = false) => {
     setLoading(true);
 
     try {
@@ -56,7 +56,7 @@ const HomePage = () => {
         })
       );
 
-      setUsers((prev) => [...prev, ...enriched]);
+      setUsers((prev) => (append ? [...prev, ...enriched] : enriched));
     } catch (err) {
       console.error("Error loading users:", err);
       toast.error("Failed to load users");
@@ -84,7 +84,11 @@ const HomePage = () => {
         </div>
       </div>
       <div className="mt-4 flex gap-10 justify-center">
-        <Button onClick={loadUsers} disabled={loading} className="load-btn">
+        <Button
+          onClick={() => loadUsers(true)}
+          disabled={loading}
+          className="load-btn"
+        >
           {loading ? "Loading..." : "Load More"}
         </Button>
         <Button onClick={onBtnClick} className="load-btn">
