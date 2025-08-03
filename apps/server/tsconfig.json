@@ -15,6 +15,6 @@
       "@/*": ["../client/*"] 
     }
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "../client/types/**/*"],
   "exclude": ["dist"]
 }
