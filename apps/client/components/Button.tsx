@@ -7,9 +7,10 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
-const Button = ({className, children, onClick}: ButtonProps) => {
+const Button = ({className, children, onClick, disabled}: ButtonProps) => {
   return (
     <button 
+      disabled={disabled}
       className={className}
       onClick={onClick}>
         {children}
