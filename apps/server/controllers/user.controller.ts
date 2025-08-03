@@ -3,6 +3,7 @@ import { userService } from "../services/user.service.js";
 import { z } from "zod";
 import { User } from "@/types/user";
 import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
+import { dubbingCheck, validateUserBody } from "../middleware.js";
 
 const userSchema = z.object({
   id: z.string(),
@@ -38,19 +39,24 @@ export const registerUserRoutes = (
     }
   });
 
-  fastify.post("/users", async (req, reply) => {
-    try {
-      const parsed = userSchema.parse(req.body);
-      const result = await userService.saveUser(db, parsed);
-      reply.code(201).send(result);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        reply.code(400).send({ error: err.message });
-      } else {
-        reply.code(400).send({ error: "Failed to save user" });
+  fastify.post(
+    "/users",
+    {
+      preHandler: [dubbingCheck(db), validateUserBody(userSchema)],
+    },
+    async (req, reply) => {
+      try {
+        const result = await userService.saveUser(db, req.body as User);
+        reply.code(201).send(result);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          reply.code(400).send({ error: err.message });
+        } else {
+          reply.code(500).send({ error: "Failed to save the user" });
+        }
       }
     }
-  });
+  );
 
   fastify.delete(
     "/users/:id",
