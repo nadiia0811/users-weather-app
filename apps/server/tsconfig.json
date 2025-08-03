@@ -2,17 +2,19 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
+    "rootDir": ".",
     "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".", 
     "paths": {
       "@/*": ["../client/*"] 
     }
   },
-  "include": ["src/**/*"],
+  "include": ["**/*.ts"],
   "exclude": ["dist"]
 }

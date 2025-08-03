@@ -15,7 +15,7 @@ const start = async () => {
     const fastify = Fastify({ logger: true });
 
     await fastify.register(cors, {
-      origin: "http://localhost:3000", 
+      origin: process.env.CLIENT_URL || "*", 
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     });
