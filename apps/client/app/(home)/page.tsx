@@ -29,6 +29,23 @@ const HomePage = () => {
     }
   };
 
+  const refreshWeather = async () => {
+    if (users.length === 0) return;
+
+    try {
+      const updated = await Promise.all(
+        users.map(async (user) => {
+          const weather = await getWeather(user.latitude, user.longitude);
+          return { ...user, weather };
+        })
+      );
+      setUsers(updated);
+      toast.info("Weather updated");
+    } catch (err) {
+      toast.error(`Error refreshing weather: ${err}`);
+    }
+  };
+
   const loadUsers = async (append = false) => {
     setLoading(true);
 
@@ -68,6 +85,13 @@ const HomePage = () => {
   useEffect(() => {
     loadUsers();
   }, []);
+
+  useEffect(() => {
+    if (users.length > 0) {
+      const interval = setInterval(refreshWeather,  5 * 60 * 1000 ); 
+      return () => clearInterval(interval);
+    }
+  }, [users]);
 
   return (
     <UsersLayout
