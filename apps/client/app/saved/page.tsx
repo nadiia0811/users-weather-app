@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 import { fetchSavedUsers, deleteUser } from "@/lib/users";
 import UserCard from "@/components/UserCard";
-import Button from "@/components/Button";
 import { User } from "@/types/user";
+import UsersLayout from "@/components/UsersLayout";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const SavedUsersPage = () => {
   const [users, setUsers] = useState<User[]>([]);
-  const message = "Failed to remove user";
+  const message = "Failed to remove the user";
   const router = useRouter();
 
   const loadSaved = async () => {
@@ -18,7 +18,7 @@ const SavedUsersPage = () => {
     setUsers(data as User[]);
   };
 
-  const onBtnClick = () => {
+  const handleBackClick = () => {
     router.push("/");
   };
 
@@ -26,7 +26,7 @@ const SavedUsersPage = () => {
     try {
       await deleteUser(id);
       loadSaved();
-      toast.success("User removed successfully");
+      toast.success("User was removed successfully");
     } catch (error) {
       console.error(`${message}:`, error);
       toast.error(message);
@@ -38,24 +38,16 @@ const SavedUsersPage = () => {
   }, []);
 
   return (
-    <section className="flex flex-col p-6 items-center">
-      <h1 className="text-2xl font-bold mb-4">Saved Users</h1>
-      <div className="flex flex-wrap gap-4">
-        {users.map((u) => (
-          <UserCard
-            key={u.id}
-            user={u}
-            isSaved
-            onDelete={() => removeUser(u.id!)}
-          />
-        ))}
-      </div>
-      <div className="mt-4">
-        <Button className="load-btn" onClick={onBtnClick}>
-          Back
-        </Button>
-      </div>
-    </section>
+    <UsersLayout title="Saved Users" onBack={handleBackClick}>
+      {users.map((user) => (
+        <UserCard
+          key={user.id}
+          user={user}
+          isSaved
+          onDelete={() => removeUser(user.id!)}
+        />
+      ))}
+    </UsersLayout>
   );
 };
 

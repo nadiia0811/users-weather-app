@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { fetchRandomUsers, saveUser } from "@/lib/users";
 import { getWeather } from "@/lib/weather";
 import UserCard from "@/components/UserCard";
-import Button from "@/components/Button";
+import UsersLayout from "@/components/UsersLayout";
 import { User, RandomUserAPI } from "@/types/user";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -12,17 +12,17 @@ import { toast } from "sonner";
 const HomePage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
-  const message = "Failed to save user";
+  const message = "Failed to save the user";
   const router = useRouter();
 
-  const onBtnClick = () => {
+  const onSaved = () => {
     router.push("/saved");
   };
 
   const handleSave = async (user: User) => {
     try {
       await saveUser(user);
-      toast.success("User saved successfully!");
+      toast.success("User was saved successfully!");
     } catch (error) {
       console.error(`${message}:`, error);
       toast.error(message);
@@ -70,32 +70,17 @@ const HomePage = () => {
   }, []);
 
   return (
-    <section className="flex flex-col p-6">
-      <div className="flex flex-col">
-        <h1 className="text-2xl font-bold mb-4 text-center">Random Users</h1>
-        <div className="flex flex-wrap gap-4 justify-center">
-          {users.map((user) => (
-            <UserCard
-              key={user.email}
-              user={user}
-              onSave={() => handleSave(user)}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="mt-4 flex gap-10 justify-center">
-        <Button
-          onClick={() => loadUsers(true)}
-          disabled={loading}
-          className="load-btn"
-        >
-          {loading ? "Loading..." : "Load More"}
-        </Button>
-        <Button onClick={onBtnClick} className="load-btn">
-          Saved Users
-        </Button>
-      </div>
-    </section>
+    <UsersLayout
+      title="Random Users"
+      showLoadMore
+      onLoadMore={() => loadUsers(true)}
+      loading={loading}
+      onSaved={onSaved}
+    >
+      {users.map((user) => (
+        <UserCard key={user.id} user={user} onSave={() => handleSave(user)} />
+      ))}
+    </UsersLayout>
   );
 };
 
