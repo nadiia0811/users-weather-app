@@ -26,7 +26,6 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@shared/*": ["../shared/*"]
     }
   },
   "include": [
@@ -34,7 +33,6 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "../shared/**/*"
   ],
   "exclude": [
     "node_modules"
