@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { User } from "@shared/types/user";
 import { apiGet, apiPost, apiDelete } from "./api";
 
 export const fetchRandomUsers = async (count = 4) => {
@@ -21,4 +21,3 @@ export const saveUser = async (user: User) => {
 export const deleteUser = (id: string) => {
   return apiDelete(`/users/${id}`);
 };
-

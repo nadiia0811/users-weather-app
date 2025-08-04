@@ -1,4 +1,4 @@
-import { User } from "@/types/user";
+import { User } from "@shared/types/user";
 import { Low } from "lowdb";
 
 export const userService = {
@@ -29,4 +29,3 @@ export const userService = {
     return { deleted: before - db.data.users.length };
   },
 };
-
