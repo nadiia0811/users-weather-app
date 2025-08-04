@@ -5,7 +5,8 @@ import { fetchRandomUsers, saveUser } from "@/lib/users";
 import { getWeather } from "@/lib/weather";
 import UserCard from "@/components/UserCard";
 import UsersLayout from "@/components/UsersLayout";
-import { User, RandomUserAPI } from "@/types/user";
+import { RandomUserAPI } from "@/types/user";
+import { User } from "@shared/types/user";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -25,7 +26,7 @@ const HomePage = () => {
       toast.success("User was saved successfully!");
     } catch (error) {
       console.error(`${message}:`, error);
-      toast.error(message);
+      toast.error(`${message}`);
     }
   };
 
@@ -88,7 +89,7 @@ const HomePage = () => {
 
   useEffect(() => {
     if (users.length > 0) {
-      const interval = setInterval(refreshWeather,  5 * 60 * 1000 ); 
+      const interval = setInterval(refreshWeather, 5 * 60 * 1000);
       return () => clearInterval(interval);
     }
   }, [users]);
