@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "node",
-    "rootDir": ".",
-    "outDir": "dist",
-    "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "types": ["node"],
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".", 
+    "outDir": "./dist",
+    "rootDir": "../../",
+    "strict": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["../client/*"] 
+      "@/*": ["./*"],
+      "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["**/*.ts", "../client/types/**/*"],
-  "exclude": ["dist"]
+  "include": ["src/**/*", "../shared/**/*","controllers/**/*", "services/**/*",],
+  "exclude": ["node_modules", "dist"]
 }
