@@ -4,5 +4,9 @@
   "workspaces": [
     "apps/client",
     "apps/server"
-  ]
+  ],
+   "dependencies": {
+    "@types/node": "^20.19.9",
+    "typescript": "^5.8.3"
+  }
 }
