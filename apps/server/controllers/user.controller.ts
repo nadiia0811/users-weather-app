@@ -1,8 +1,8 @@
-import { Low } from "lowdb";
+import { Low } from "lowdb"; 
 import { userService } from "../services/user.service.js";
 import { z } from "zod";
-import { User } from "@/types/user";
-import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
+import { User } from "@shared/types/user";
+import type { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 import { dubbingCheck, validateUserBody } from "../middleware.js";
 
 const userSchema = z.object({
@@ -77,3 +77,8 @@ export const registerUserRoutes = (
     }
   );
 };
+
+
+
+
+
