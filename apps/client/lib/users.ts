@@ -1,4 +1,4 @@
-import { User } from "@shared/types/user";
+import { User } from "@/types/user";
 import { apiGet, apiPost, apiDelete } from "./api";
 
 export const fetchRandomUsers = async (count = 4) => {

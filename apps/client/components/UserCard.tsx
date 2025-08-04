@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@shared/types/user";
+import { User } from "@/types/user";
 import Image from "next/image";
 import { getWeatherInfo } from "@/lib/weatherMap";
 import Button from "@/components/Button";
