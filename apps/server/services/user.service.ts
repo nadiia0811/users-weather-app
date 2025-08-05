@@ -1,4 +1,4 @@
-import { User } from "@shared/types/user";
+import { User } from "../types.js";
 import { Low } from "lowdb";
 
 export const userService = {

@@ -2,7 +2,7 @@ import Fastify from "fastify";
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
 import { registerUserRoutes } from "../controllers/user.controller.js";
-import { User } from "@shared/types/user.js";
+import { User } from "../types.js";
 import path,{ dirname }  from "path";
 import { fileURLToPath } from "url";
 import cors from "@fastify/cors";

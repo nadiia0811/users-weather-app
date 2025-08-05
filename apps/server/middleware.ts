@@ -1,5 +1,5 @@
 import { Low } from "lowdb";
-import { User } from "@shared/types/user";
+import { User } from "./types.js";
 import { z } from "zod";
 import type {
   FastifyRequest,
@@ -8,7 +8,7 @@ import type {
   preHandlerHookHandler,
 } from "fastify"; 
 
-export const validateUserBody = (schema: z.ZodType): preHandlerHookHandler => { //work
+export const validateUserBody = (schema: z.ZodType): preHandlerHookHandler => {
   return (
     req: FastifyRequest,
     reply: FastifyReply,

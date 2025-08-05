@@ -1,7 +1,7 @@
 import { Low } from "lowdb"; 
 import { userService } from "../services/user.service.js";
 import { z } from "zod";
-import { User } from "@shared/types/user";
+import { User } from "../types.js";
 import type { FastifyRequest, FastifyReply, FastifyInstance } from "fastify";
 import { dubbingCheck, validateUserBody } from "../middleware.js";
 
