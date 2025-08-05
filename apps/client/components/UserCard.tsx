@@ -24,6 +24,7 @@ const UserCard = ({ user, onSave, onDelete, isSaved }: Props) => {
         src={user.picture}
         alt={`Profile picture of ${user.name}`}
         className="rounded-full"
+        unoptimized
       />
       <h2 className="mt-2 text-lg font-bold">{user.name}</h2>
       <p className="text-sm mb-2">
