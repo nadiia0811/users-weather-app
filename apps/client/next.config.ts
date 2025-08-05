@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
         hostname: "cdn.weatherbit.io",
       },
     ],
+    domains: ['randomuser.me', 'cdn.weatherbit.io']
   },
 }
 
