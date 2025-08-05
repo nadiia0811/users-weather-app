@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { fetchSavedUsers, deleteUser } from "@/lib/users";
 import UserCard from "@/components/UserCard";
-import { User } from "@shared/types/user";
+import { User } from "@/types/user";
 import UsersLayout from "@/components/UsersLayout";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
