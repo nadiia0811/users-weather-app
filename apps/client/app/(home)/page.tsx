@@ -6,7 +6,7 @@ import { getWeather } from "@/lib/weather";
 import UserCard from "@/components/UserCard";
 import UsersLayout from "@/components/UsersLayout";
 import { RandomUserAPI } from "@/types/user";
-import { User } from "@shared/types/user";
+import { User } from "@/types/user";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
